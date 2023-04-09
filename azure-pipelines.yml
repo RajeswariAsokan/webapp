@@ -1,7 +1,7 @@
 trigger:
   - none
 pool:
-  name: default
+  name: azure pipeline
 steps:
 - task: Maven@4
   inputs:
