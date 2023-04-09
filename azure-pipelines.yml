@@ -2,10 +2,12 @@ stages:
 - stage: build
   jobs:
   - job: buildjob
-    pool: azure pipeline 
+    pool: 
+	  name: azure pipeline
+      demand: maven
     steps:
     - task: maven@4 
-      #task-version: "4.*"
+      task-version: "4.*"
       inputs:
        name01: "Maven pom.xml"
        Maven-pom-file: "pom.xml"
