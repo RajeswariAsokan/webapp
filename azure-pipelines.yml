@@ -1,7 +1,7 @@
 trigger:
   - none
 pool:
-  name: azure pipeline
+  name: "<inherit from pipeline>"
 steps:
 - task: Maven@4
   inputs:
