@@ -1,20 +1,21 @@
 pool:
-  name: Azure Pipelines
-  demands:
-  - maven
-  - maven
+	name: Azure Pipelines
+	Demands: maven
 
-steps:
-- task: Maven@4
-  displayName: 'Maven pom.xml'
-
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+steps: 
+- task: maven@4 
+  task-version: "4.*"
   inputs:
-    SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: '**/*.jar'
-    TargetFolder: '$(build.artifactstagingdirectory)'
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-
+    name01: "Maven pom.xml"
+    Maven-pom-file: "pom.xml"
+    goals: package
+    Publish-to-Azure-Pipelines: true
+    Test-results-files: "**/surefire-reports/TEST-*.xml"
+    Code-coverage-tool: none
+- task: Copyfiles 
+  task-version: "2.*"
+	inputs:  
+    display-name: "Copy Files to: $(build.artifactstagingdirectory)"
+    sourcefolder: "$(system.defaultworkingdirectory)"
+    contents: "**/*.jar"
+    targetfolder: "$(build.artifactstagingdirectory)"
