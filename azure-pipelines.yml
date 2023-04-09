@@ -1,17 +1,25 @@
-stages:
-- stage: build
-  jobs:
-  - job: buildjob
-    pool: 
-	    name: azure pipeline
-      demand: maven
-    steps:
-    - task: maven@4 
-      task-version: "4.*"
-      inputs:
-       name01: "Maven pom.xml"
-       Maven-pom-file: "pom.xml"
-       goals: package
-       Publish-to-Azure-Pipelines: true
-       Test-results-files: "**/surefire-reports/TEST-*.xml"
-       Code-coverage-tool: none
+trigger:
+  - none
+pool:
+  name: default
+steps:
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: '**/*.jar'
+    TargetFolder: '$(build.atifactstagingdirectory)'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
