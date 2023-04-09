@@ -5,7 +5,7 @@ stages:
     pool: azure pipeline 
     steps:
     - task: maven@4 
-      task-version: "4.*"
+      #task-version: "4.*"
       inputs:
        name01: "Maven pom.xml"
        Maven-pom-file: "pom.xml"
