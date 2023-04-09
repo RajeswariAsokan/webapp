@@ -4,8 +4,9 @@
 
 pool:
   name: Azure Pipelines
-  Demands: maven
-
+  Demands: 
+  - maven
+  - maven
 steps: 
 - task: maven@4 
   task-version: "4.*"
