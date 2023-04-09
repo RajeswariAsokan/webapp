@@ -3,9 +3,9 @@ trigger:
 pool:
   name: "Azure Pipelines"
 steps:
-- task: Maven
+- task: Maven@4
   inputs:
-    mavenPomFile: 'pom.xml'
+    mavenPom-File: 'pom.xml'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
@@ -13,12 +13,12 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
-- task: CopyFiles
+- task: CopyFiles@2
   inputs:
     SourceFolder: '$(system.defaultworkingdirectory)'
     Contents: '**/*.jar'
     TargetFolder: '$(build.artifactstagingdirectory)'
-- task: PublishBuildArtifacts
+- task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
