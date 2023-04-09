@@ -3,7 +3,7 @@ stages:
   jobs:
   - job: buildjob
     pool: 
-	  name: azure pipeline
+	    name: azure pipeline
       demand: maven
     steps:
     - task: maven@4 
