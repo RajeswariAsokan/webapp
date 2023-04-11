@@ -1,23 +1,19 @@
 trigger:
 - none
-stages:
-- stage: Buildapplication
-  jobs: 
-  - job: Build
-    pool:
-     name: "Azure Pipelines"
-    steps:
-    - task: Maven@4
-      inputs:
-        mavenPomFile: 'pom.xml'
-        publishJUnitResults: true
-        testResultsFiles: '**/surefire-reports/TEST-*.xml'
-        goals: package
-        codeCoverageToolOption: none
-    - task: CopyFiles@2
-      displayName: "Copy Files to: $(build.artifactstagingdirectory)"
-      inputs:
-        SourceFolder: '$(system.DefaultWorkingDirectory)'
-        Contents: '**/*.jar'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+pool:
+  name: "Azure Pipelines"
+steps:
+ - task: Maven@4
+   inputs:
+      mavenPomFile: 'pom.xml'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      goals: package
+      codeCoverageToolOption: none
+ - task: CopyFiles@2
+   displayName: "Copy Files to: $(build.artifactstagingdirectory)"
+   inputs:
+     SourceFolder: '$(system.DefaultWorkingDirectory)'
+     Contents: '**/*.jar'
+     TargetFolder: '$(Build.ArtifactStagingDirectory)'
    
