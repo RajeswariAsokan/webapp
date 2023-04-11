@@ -22,4 +22,12 @@ steps:
      PathtoPublish: "$(Build.ArtifactStagingDirectory)"
      ArtifactName: raji
      publishLocation: "Container"
+ - task: AzureRmWebAppDeployment@4
+   displayName: "Deploy Azure App Service"
+   inputs: 
+     ConnectionType: AzureRM
+     azureSubscription: "Free Trial (0842a7ee-3fe3-4df8-a868-313b0d4adf3a)"
+     packageForLinux: "$(System.DefaultWorkingDirectory)/**/*.jar"
+     appType: webAppLinux
+     WebAppName: rajidevopsdev
    
