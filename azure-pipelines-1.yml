@@ -17,14 +17,10 @@ stages:
     - task: CopyFiles@2
       displayName: "Copy Files to: $(build.artifactstagingdirectory)"
       inputs:
-        SourceFolder: "$(system.defaultworkingdirectory)"
-        Contents: "**/*.jar"
-        TargetFolder: "$(Build.ArtifactStagingDirectory)"
-- stage: Copywarfile 
-  jobs:
+        SourceFolder: '$(system.DefaultWorkingDirectory)'
+        Contents: '**/*.jar'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
   - job: Publish
-    pool:
-     name: "Azure Pipelines"
     steps:
     - task: PublishBuildArtifacts@1
       displayName: "Publish Artifact: drop"
