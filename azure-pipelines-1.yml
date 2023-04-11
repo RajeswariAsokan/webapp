@@ -14,32 +14,4 @@ stages:
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         goals: package
         codeCoverageToolOption: none
-    - task: CopyFiles@2
-      displayName: "Copy Files to: $(build.artifactstagingdirectory)"
-      inputs:
-        SourceFolder: '$(system.DefaultWorkingDirectory)'
-        Contents: '**/*.jar'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
-  - job: Publish
-    steps:
-    - task: PublishBuildArtifacts@1
-      displayName: "Publish Artifact: raji"
-      inputs:
-       PathtoPublish: "$(Build.ArtifactStagingDirectory)"
-       ArtifactName: raji
-       publishLocation: "Container"
-  
-- stage: Deployapplication
-  jobs:
-  - job: Deploy
-    pool:
-     name: "Azure Pipelines"
-    steps:
-    - task: AzureRmWebAppDeployment@4
-      displayName: "Deploy Azure App Service"
-      inputs: 
-        ConnectionType: AzureRM
-        azureSubscription: "Free Trial (0842a7ee-3fe3-4df8-a868-313b0d4adf3a)"
-        packageForLinux: "$(System.DefaultWorkingDirectory)/**/*.jar"
-        appType: webAppLinux
-        WebAppName: rajidevopsdev
+   
