@@ -10,7 +10,6 @@ stages:
     - task: Maven@4
       inputs:
         mavenPomFile: "pom.xml"
-        codeCoverageToolOption: none
         goals: package
         publishJUnitResults: true
         testResultsFiles: "**/surefire-reports/TEST-*.xml"
