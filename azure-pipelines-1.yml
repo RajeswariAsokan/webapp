@@ -16,4 +16,10 @@ steps:
      SourceFolder: '$(system.DefaultWorkingDirectory)'
      Contents: '**/*.jar'
      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+ - task: PublishBuildArtifacts@1
+   displayName: "Publish Artifact: raji"
+   inputs:
+     PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+     ArtifactName: raji
+     publishLocation: "Container"
    
