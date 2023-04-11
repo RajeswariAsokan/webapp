@@ -1,0 +1,52 @@
+trigger:
+- none
+stages:
+- stage: Buildapplication
+  jobs: 
+  - job: Build
+    pool:
+     name: "Azure Pipelines"
+    steps:
+    - task: Maven@4
+      inputs:
+        mavenPomFile: "pom.xml"
+        codeCoverageToolOption: none
+        goals: package
+        publishJUnitResults: true
+        testResultsFiles: "**/surefire-reports/TEST-*.xml"
+    - task: CopyFiles@2
+      displayName: "Copy Files to: $(build.artifactstagingdirectory)"
+      inputs:
+        SourceFolder: "$(system.defaultworkingdirectory)"
+        Contents: "**/*.jar"
+        TargetFolder: "$(Build.ArtifactStagingDirectory)"
+- stage: Copy war file 
+  jobs:
+  - job: Publish
+    pool:
+     name: "Azure Pipelines"
+    steps:
+    - task: PublishBuildArtifacts@1
+      displayName: "Publish Artifact: drop"
+      inputs:
+       PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+       ArtifactName: drop
+       publishLocation: "Container"
+  
+- stage: Deployapplication
+  jobs:
+  - job: Deploy
+    pool:
+     name: "Azure Pipelines"
+    steps:
+    - task: AzureRmWebAppDeployment@4
+      displayName: "Deploy Azure App Service"
+      inputs: 
+        ConnectionType: AzureRM
+        azureSubscription: "0842a7ee-3fe3-4df8-a868-313b0d4adf3a"
+        packageForLinux: "$(System.DefaultWorkingDirectory)/_jave-classiceditordemo-CI/drop/target/hello-world-java.jar"
+        appType: webAppLinux
+        WebAppName: rajidevopsdev
+             
+        
+        
