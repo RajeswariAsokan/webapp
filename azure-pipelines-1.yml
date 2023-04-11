@@ -9,10 +9,11 @@ stages:
     steps:
     - task: Maven@4
       inputs:
-        mavenPomFile: "pom.xml"
-        goals: package
+        mavenPomFile: 'pom.xml'
         publishJUnitResults: true
-        testResultsFiles: "**/surefire-reports/TEST-*.xml"
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        goals: package
+        codeCoverageToolOption: none
     - task: CopyFiles@2
       displayName: "Copy Files to: $(build.artifactstagingdirectory)"
       inputs:
