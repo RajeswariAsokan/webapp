@@ -14,4 +14,10 @@ stages:
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         goals: package
         codeCoverageToolOption: none
+    - task: CopyFiles@2
+      displayName: "Copy Files to: $(build.artifactstagingdirectory)"
+      inputs:
+        SourceFolder: '$(system.DefaultWorkingDirectory)'
+        Contents: '**/*.jar'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
    
