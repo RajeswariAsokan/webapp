@@ -23,10 +23,10 @@ stages:
   - job: Publish
     steps:
     - task: PublishBuildArtifacts@1
-      displayName: "Publish Artifact: drop"
+      displayName: "Publish Artifact: raji"
       inputs:
        PathtoPublish: "$(Build.ArtifactStagingDirectory)"
-       ArtifactName: drop
+       ArtifactName: raji
        publishLocation: "Container"
   
 - stage: Deployapplication
