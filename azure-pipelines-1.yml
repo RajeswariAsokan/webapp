@@ -43,7 +43,7 @@ stages:
       displayName: "Deploy Azure App Service"
       inputs: 
         ConnectionType: AzureRM
-        azureSubscription: "0842a7ee-3fe3-4df8-a868-313b0d4adf3a"
+        azureSubscription: "Free Trial (0842a7ee-3fe3-4df8-a868-313b0d4adf3a)"
         packageForLinux: "$(System.DefaultWorkingDirectory)/_jave-classiceditordemo-CI/drop/target/hello-world-java.jar"
         appType: webAppLinux
         WebAppName: rajidevopsdev
