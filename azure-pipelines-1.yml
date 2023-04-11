@@ -20,7 +20,7 @@ stages:
         SourceFolder: "$(system.defaultworkingdirectory)"
         Contents: "**/*.jar"
         TargetFolder: "$(Build.ArtifactStagingDirectory)"
-- stage: Copy war file 
+- stage: Copywarfile 
   jobs:
   - job: Publish
     pool:
