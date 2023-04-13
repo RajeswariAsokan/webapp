@@ -26,7 +26,7 @@ stages:
         PathtoPublish: "$(Build.ArtifactStagingDirectory)"
         ArtifactName: raji
         publishLocation: "Container"
-- stage: Deploy
+- stage: Deploy_dev
   jobs:
   - job: deploy
     pool:
@@ -46,5 +46,23 @@ stages:
        packageForLinux: "$(System.ArtifactsDirectory)/**/*.jar"
        appType: webAppLinux
        WebAppName: rajidevopsdev
-
+- stage: deploy_uat
+  jobs: 
+  - job: Deploy
+    pool:
+     name: "Azure Pipelines"
+    steps:
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'raji'
+        downloadPath: '$(System.ArtifactsDirectory)'
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Free Trial (0842a7ee-3fe3-4df8-a868-313b0d4adf3a)'
+        appType: 'webAppLinux'
+        WebAppName: 'rajidevopsuat'
+        packageForLinux: '$System.ArtifactsDirectory)/**/*.jar'
    
